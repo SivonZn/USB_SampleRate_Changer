@@ -115,6 +115,12 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </devicePort>
+                <devicePort tagName="USB Primary Out" type="AUDIO_DEVICE_OUT_BUS" role="sink" address="usb_phone_call">
+                    <profile name="" format="AUDIO_FORMAT_PCM_32_BIT"
+                             samplingRates="44100 48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </devicePort>
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,44100,48000"
@@ -179,6 +185,8 @@
                        sources="primary output"/>
                 <route type="mix" sink="FM Tuner Out"
                        sources="primary output"/>
+                <route type="mix" sink="USB Primary Out"
+                       sources="primary output"/>
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic,AUX Digital In,FM Tuner In,USB Primary In,Voice Call In"/>
             </routes>
@@ -241,6 +249,7 @@
                 </mixPort>
                 <mixPort name="usb_device output" role="source">
                     <profile name="" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                <mixPort name="usb_device input" role="sink"/>
                 </mixPort>
             </mixPorts>
             <devicePorts>
@@ -254,6 +263,8 @@
                 <devicePort tagName="USB Headset Out" type="AUDIO_DEVICE_OUT_USB_HEADSET" role="sink">
                     <profile name="" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </devicePort>
+                <devicePort tagName="USB Device In" type="AUDIO_DEVICE_IN_USB_DEVICE" role="source"/>
+                <devicePort tagName="USB Headset In" type="AUDIO_DEVICE_IN_USB_HEADSET" role="source"/>
            </devicePorts>
             <routes>
                 <route type="mix" sink="USB Host Out"
@@ -262,6 +273,8 @@
                        sources="usb_device output"/>
                 <route type="mix" sink="USB Headset Out"
                        sources="usb_device output"/>
+                <route type="mix" sink="usb_device input"
+                        sources="USB Device In,USB Headset In"/>
              </routes>
         </module>
 

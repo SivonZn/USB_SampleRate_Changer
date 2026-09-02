@@ -44,10 +44,6 @@
                              samplingRates="48000"
                              channelMasks="AUDIO_CHANNEL_OUT_STEREO_HAPTIC_A" />
                 </mixPort>
-                <mixPort name="usb_playback" role="source">
-                    <profile name="" format="%AUDIO_FORMAT%"
-                             samplingRates="%SAMPLING_RATE%" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
-                </mixPort>
                 <mixPort name="direct_pcm" role="source"
                         flags="AUDIO_OUTPUT_FLAG_DIRECT">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
@@ -261,9 +257,9 @@
                 <route type="mix" sink="BT SCO Car Kit"
                        sources="primary output,deep buffer,direct_pcm,compressed_offload,haptic,voip_rx"/>
                 <route type="mix" sink="USB Device Out"
-                       sources="direct_pcm,compressed_offload,mmap_no_irq_out,usb_playback"/>
+                       sources="primary output,deep buffer,direct_pcm,compressed_offload,mmap_no_irq_out,haptic,voip_rx"/>
                 <route type="mix" sink="USB Headset Out"
-                       sources="direct_pcm,compressed_offload,mmap_no_irq_out,usb_playback"/>
+                       sources="primary output,deep buffer,direct_pcm,compressed_offload,mmap_no_irq_out,haptic,voip_rx"/>
                 <route type="mix" sink="BT A2DP Out"
                        sources="primary output,deep buffer,direct_pcm,compressed_offload,mmap_no_irq_out,haptic,voip_rx"/>
                 <route type="mix" sink="BT A2DP Headphones"

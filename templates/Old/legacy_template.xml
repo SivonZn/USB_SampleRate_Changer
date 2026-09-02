@@ -86,6 +86,10 @@
                 </devicePort>
                 <devicePort tagName="Telephony Tx" type="AUDIO_DEVICE_OUT_TELEPHONY_TX" role="sink">
                 </devicePort>
+                <devicePort tagName="USB Primary Out" type="AUDIO_DEVICE_OUT_BUS" role="sink" address="usb_phone_call">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </devicePort>
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
                 <devicePort tagName="Built-In Back Mic" type="AUDIO_DEVICE_IN_BACK_MIC" role="source">
@@ -95,6 +99,11 @@
                 <devicePort tagName="BT SCO Headset Mic" type="AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET" role="source">
                 </devicePort>
                 <devicePort tagName="Telephony Rx" type="AUDIO_DEVICE_IN_TELEPHONY_RX" role="source">
+                </devicePort>
+                <devicePort tagName="USB Primary In" type="AUDIO_DEVICE_IN_BUS" role="source" address="usb_phone_call">
+                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000 16000 32000 44100 48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO"/>
                 </devicePort>
             </devicePorts>
             <routes>
@@ -114,16 +123,18 @@
                        sources="primary output,deep_buffer,voip_rx"/>
                 <route type="mix" sink="BT SCO Car Kit"
                        sources="primary output,deep_buffer,voip_rx"/>
+                <route type="mix" sink="USB Primary Out"
+                       sources="primary output,deep_buffer,voip_rx,Telephony Rx"/>
                 <route type="mix" sink="Telephony Tx"
                        sources="voice_tx,incall_music_uplink"/>
                 <route type="mix" sink="primary input"
-                       sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic"/>
+                       sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic,USB Primary In"/>
                 <route type="mix" sink="fast input"
-                       sources="Built-In Mic,Built-In Back Mic"/>
+                       sources="Built-In Mic,Built-In Back Mic,USB Primary In"/>
                 <route type="mix" sink="voice_rx"
                        sources="Telephony Rx"/>
                 <route type="mix" sink="voip_tx"
-                       sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic"/>
+                       sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic,USB Primary In"/>
             </routes>
         </module>
 
@@ -186,6 +197,7 @@
                     <profile name="" format="%AUDIO_FORMAT%"
                              samplingRates="%SAMPLING_RATE%" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <mixPort name="usb_device input" role="sink"/>
             </mixPorts>
             <devicePorts>
                 <devicePort tagName="USB Host Out" type="AUDIO_DEVICE_OUT_USB_ACCESSORY" role="sink">
@@ -200,6 +212,8 @@
                     <profile name="" format="%AUDIO_FORMAT%"
                              samplingRates="%SAMPLING_RATE%" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </devicePort>
+                <devicePort tagName="USB Device In" type="AUDIO_DEVICE_IN_USB_DEVICE" role="source"/>
+                <devicePort tagName="USB Headset In" type="AUDIO_DEVICE_IN_USB_HEADSET" role="source"/>
            </devicePorts>
             <routes>
                 <route type="mix" sink="USB Host Out"
@@ -208,6 +222,8 @@
                        sources="usb_device output"/>
                 <route type="mix" sink="USB Headset Out"
                        sources="usb_device output"/>
+                <route type="mix" sink="usb_device input"
+                        sources="USB Device In,USB Headset In"/>
              </routes>
         </module>
 
