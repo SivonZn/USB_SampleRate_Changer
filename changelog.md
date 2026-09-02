@@ -1,5 +1,8 @@
 ## Change logs
 
+# v3.0.11
+# Fixed a USB phone call bug when using a USB HAL audio driver
+
 # v3.0.10
 * Added "--offload-safer" mode (primary sample rate is fixed at 48 kHz & 32bit, but USB one varies by specified values)
 * Tuned I/O scheduling parameters for POCO F6, POCO F3, Motorola G54's and Pixel 6's 
